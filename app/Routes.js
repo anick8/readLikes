@@ -2,19 +2,14 @@ var utils = require('../common/utils')
 var readFollow = require('./readFollow');
 module.exports = (app, console) => {
     
-    app.post('/isFollowing',async (req, res) => {
-         result  = await readFollow.isFollowing(req);
+    app.post('/isFollow',async (req, res) => {
+         result  = await readFollow.isFollow(req);
          utils.handleresult(res,result)
         }
     )
         
-    app.post('/readAllFollowers',async (req, res) => {
-        result =await readFollow.readAllFollowers(req);
-        utils.handleresult(res,result)
-        }
-    )
-    app.post('/readAllFollowing',async (req, res) => {
-        result =await readIdentity.readAllFollowing(req);
+    app.post('/readAllFollows',async (req, res) => {
+        result =await readFollow.readAllFollows(req);
         utils.handleresult(res,result)
         }
     )

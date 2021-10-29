@@ -40,8 +40,8 @@ exports.readAllFollows = async (req) => {
             result =await pgsql.conquery(qname,qarg)
             if (result.rowCount==0)
             {
-                err = {'err':'No Follow'+ (ErsOrIng?'ers':'ing')}
-                return [err,null,"No Follow"+ErsOrIng?"ers":"ing"]
+                err = {'err':('No Follow'+ (ErsOrIng?'ers':'ing'))}
+                return [err,null,("No Follow"+(ErsOrIng?"ers":"ing"))]
             }
             else
                 return [null,result.rows,"Successfully fetched all Follows"]

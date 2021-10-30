@@ -42,8 +42,9 @@ Request Body -
     
  - req.body.Follower - Person A / From IdentityUUID
  - req.body.Following - Person B / To IdentityUUID
-- req.body.limit : Number of rows returned , Default 20 \
-- req.body.offset : Offset of rows returned, Default 0 \
+ - req.body.ErsOrIng - Followers ( 0 ) or Following ( 1 ) , Default 0 
+- req.body.limit : Number of rows returned , Default 20 
+- req.body.offset : Offset of rows returned, Default 0 
 
  Response Body - 
  - res.body.data  = [{"Follower","Following"}] array

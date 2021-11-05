@@ -2,18 +2,19 @@ var pgsql = require('../lib/pgsql')
 
 exports.isFollow = async (req) => { 
         var {Follower,Following} = req.body;
-        qname1='select "Follower" from "Follow" where "Follower" = $1 AND "Following" = $2' 
-        qname2='select "Follower" from "Follow" where "Follower" = $2 AND "Following" = $1' 
+        console.log(Follower,Following);
+        qname1='select * from "Follow" where "Follower"=$1 AND "Following"=$2' 
+        qname2='select * from "Follow" where "Follower"=$2 AND "Following"=$1' 
         qarg=[Follower,Following]
         try{
             result =await pgsql.conquery(qname1,qarg)
-            if(result.rowCount == 0)
+            if(result.rowCount === 0)
                 isFollowing=false
             else
                 isFollowing=true
 
             result =await pgsql.conquery(qname2,qarg)
-            if(result.rowCount == 0)
+            if(result.rowCount === 0)
                 isFollower=false
             else
                 isFollower=true

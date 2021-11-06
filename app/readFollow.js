@@ -40,13 +40,13 @@ exports.readAllFollows = async (req) => {
     var qarg = [Follower,limit,offset]
 	try{
             result =await pgsql.conquery(qname,qarg)
-            console.log(result.rows)
             if (result.rowCount==0)
             {
                 err = {'err':('No Follow'+ (ErsOrIng?'ers':'ing'))}
                 return [err,null,("No Follow"+(ErsOrIng?"ers":"ing"))]
             }
             else
+                console.log(result.rows)
                 return [null,result.rows,"Successfully fetched all Follows"]
             
         }

@@ -1,7 +1,8 @@
 var pgsql = require('../lib/pgsql')
 
 exports.isFollow = async (req) => { 
-        var {Follower,Following} = req.body;
+        var Follower = req.body.Follower ;
+        var Following = req.body.Following ;
         console.log(Follower,Following);
         qname1='select * from "Follow" where "Follower"=$1 AND "Following"=$2' 
         qname2='select * from "Follow" where "Follower"=$2 AND "Following"=$1' 
@@ -32,10 +33,11 @@ exports.isFollow = async (req) => {
 exports.readAllFollows = async (req) => {
 
     var Follower = req.body.Follower ;
+    console.log(Follower);
     var limit = req.body.limit || "20"; 
     var offset = req.body.offset || "0"; 
     var ErsOrIng = req.body.ErsOrIng || 0;  //0 : Followers, 1 : Following
-    var qname = 'SELECT * from "Follow" WHERE ' + (ErsOrIng?"\"Follower\"":"\"Following\"")+ ' =$1 LIMIT $2 OFFSET $3 '
+    var qname = 'SELECT ' + (ErsOrIng?"\"Following\"":"\"Follower\"")+ ' from "Follow" WHERE ' + (ErsOrIng?"\"Follower\"":"\"Following\"")+ ' =$1 LIMIT $2 OFFSET $3 '
     var qarg = [Follower,limit,offset]
 	try{
             result =await pgsql.conquery(qname,qarg)

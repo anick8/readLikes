@@ -33,15 +33,14 @@ exports.isFollow = async (req) => {
 exports.readAllFollows = async (req) => {
 
     var Follower = req.body.Follower ;
-    console.log(Follower);
     var limit = req.body.limit || "20"; 
     var offset = req.body.offset || "0"; 
     var ErsOrIng = req.body.ErsOrIng || 0;  //0 : Followers, 1 : Following
-    var qname = 'SELECT ' + (ErsOrIng?"\"Following\"":"\"Follower\"")+ ' from "Follow" WHERE ' + (ErsOrIng?"\"Follower\"":"\"Following\"")+ '=$1 LIMIT $2 OFFSET $3'
-    console.log(qname);
+    var qname = 'SELECT ' + (ErsOrIng?("\"Following\""):("\"Follower\""))+ ' from "Follow" WHERE ' + (ErsOrIng?("\"Follower\""):("\"Following\""))+ ' =$1 LIMIT $2 OFFSET $3 '
     var qarg = [Follower,limit,offset]
 	try{
             result =await pgsql.conquery(qname,qarg)
+            console.log(result)
             if (result.rowCount==0)
             {
                 err = {'err':('No Follow'+ (ErsOrIng?'ers':'ing'))}

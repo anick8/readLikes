@@ -1,15 +1,15 @@
 var utils = require('../common/utils')
-var readFollow = require('./readFollow');
+var readLikes = require('./readLikes');
 module.exports = (app, console) => {
     
-    app.post('/isFollow',async (req, res) => {
-         result  = await readFollow.isFollow(req);
+    app.post('/getLikesbyID',async (req, res) => {
+         result  = await readLikes.getLikesbyID(req);
          utils.handleresult(res,result)
         }
     )
         
-    app.post('/readAllFollows',async (req, res) => {
-        result =await readFollow.readAllFollows(req);
+    app.post('/getLikesbyIdentity',async (req, res) => {
+        result =await readLikes.getLikesbyIdentity(req);
         utils.handleresult(res,result)
         }
     )

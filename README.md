@@ -1,5 +1,6 @@
-# Hashx Follow Read Microservice
-Microservice to implement Follow Read operations.
+﻿
+# Hashx like read Microservice
+Microservice to implement like Read operations.
 
 Run using -
 
@@ -18,39 +19,30 @@ git push hashx
 
 # Routes
 
-## /isFollow
+## /getLikesbyID
 
-Checks if Follows and if Following or not, given two IdentityUUIDs : 
+Gets the likes by ID: 
 Request Body - 
- - req.body.Follower
- - req.body.Following
+ - req.body.ID - ID of the Post,Asset,Bundle etc.
 
  
  Response Body -
- res.body.data  = {"isFollowing","isFollower"}  // true or false
+ res.body.data  = {"LikeCount":No of Likes ,"LikeList": List of IdentityUUIDs that likes it }  // true or false
 
 Query -
-- 'select "Follower" from "Follow" where "Follower" = $1 AND "Following" = $2' 
-AND
-- 'select "Follower" from "Follow" where "Follower" = $2 AND "Following" = $1' 
+- select "IdentityUUID" from "Like" where "ID"=$1
 
-
-
-## /readAllFollows
+## /getLikesbyIdentity
 
 Request Body -
     
- - req.body.Follower - Person A / From IdentityUUID
- - req.body.Following - Person B / To IdentityUUID
- - req.body.ErsOrIng - Followers ( 0 ) or Following ( 1 ) , Default 0 
-- req.body.limit : Number of rows returned , Default 20 
-- req.body.offset : Offset of rows returned, Default 0 
+ req.body.IdentityUUID -  IdentityUUID of the Identity that liked it. 
 
  Response Body - 
- - res.body.data  = [{"Follower","Following"}] array
+ - res.body.data  = [List of  IDs that was liked by IdentityUUID] array
 
-Query - \
-- 'SELECT * from "Follow" WHERE ' + (ErsOrIng?"\"Follower\"":"\"Following\"")+ ' =$1 LIMIT $2 OFFSET $3
+Query - 
+select "ID" from "Like" where "IdentityUUID" =$1
 
 # Response Format
 
